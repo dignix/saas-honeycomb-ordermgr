@@ -18,5 +18,13 @@ spec:
         env:
         - name: APP_NAME
           value: saas-honeycomb-ordermgr
-        - name: PORT
+        - name: APP_PORT
           value: "8091"
+        ports:
+          - containerPort: 8091
+            name: rest-port
+          readinessProbe:
+            tcpSocket:
+              port: 8091
+            initialDelaySeconds: 5
+            periodSeconds: 2

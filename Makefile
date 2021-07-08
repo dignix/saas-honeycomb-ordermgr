@@ -1,15 +1,18 @@
+APP_NAME := saas-honeycomb-ordermgr
+IMAGE_TAG := latest
+
 .PHONY: all build tag push rollout-restart
 
 all: build tag push rollout-restart
 
 build:
-	docker build -t dignix/saas-honeycomb-ordermgr:latest .
+	docker build --rm -t dignix/$(APP_NAME):$(IMAGE_TAG) .
 
 tag:
-	docker tag dignix/saas-honeycomb-ordermgr:latest hzhyvinskyi/saas-honeycomb-ordermgr:latest
+	docker tag dignix/$(APP_NAME):$(IMAGE_TAG) hzhyvinskyi/$(APP_NAME):$(IMAGE_TAG)
 
 push:
-	docker push hzhyvinskyi/saas-honeycomb-ordermgr:latest
+	docker push hzhyvinskyi/$(APP_NAME):$(IMAGE_TAG)
 
 rollout-restart:
-	kubectl rollout restart deployment/saas-honeycomb-ordermgr
+	kubectl rollout restart deployment/$(APP_NAME)
