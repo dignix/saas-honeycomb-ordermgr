@@ -2,11 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: saas-honeycomb-ordermgr
+  namespace: ordermgr
 spec:
   selector:
     app: saas-honeycomb-ordermgr
   ports:
-  - name: saas-honeycomb-ordermgr
+  - name: http
     protocol: TCP
     port: 8091
     nodePort: 30091

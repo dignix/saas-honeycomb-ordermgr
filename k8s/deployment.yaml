@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: saas-honeycomb-ordermgr
+  namespace: ordermgr
 spec:
   selector:
     matchLabels:
@@ -16,15 +17,18 @@ spec:
       - name: saas-honeycomb-ordermgr
         image: hzhyvinskyi/saas-honeycomb-ordermgr:latest
         env:
-        - name: APP_NAME
-          value: saas-honeycomb-ordermgr
-        - name: APP_PORT
+        - name: PORT
           value: "8091"
+        - name: MONGODB_URI
+          valueFrom:
+            configMapKeyRef:
+              name: ordermgr-config
+              key: mongodb-uri
         ports:
-          - containerPort: 8091
-            name: rest-port
-          readinessProbe:
-            tcpSocket:
-              port: 8091
-            initialDelaySeconds: 5
-            periodSeconds: 2
+        - containerPort: 8091
+          name: http-port
+        readinessProbe:
+          tcpSocket:
+            port: 8091
+          initialDelaySeconds: 5
+          periodSeconds: 2

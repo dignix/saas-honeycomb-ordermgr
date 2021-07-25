@@ -15,4 +15,4 @@ push:
 	docker push hzhyvinskyi/$(APP_NAME):$(IMAGE_TAG)
 
 rollout-restart:
-	kubectl rollout restart deployment/$(APP_NAME)
+	kubectl rollout restart deployment/$(APP_NAME) -n ordermgr
